@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DNS Per App</string>
+    <string name="hero_title">DNS Per App</string>
+    <string name="hero_subtitle">Satu DNS berbeda untuk setiap aplikasi</string>
+
+    <string name="section_server">SERVER DNS GLOBAL</string>
+    <string name="section_mode">METODE</string>
+    <string name="section_apps">APLIKASI</string>
+
+    <string name="custom_dns">IP DNS custom (mis. 9.9.9.9)</string>
+    <string name="custom">Custom…</string>
+
+    <string name="mode_vpn">VPN (non-root)</string>
+    <string name="mode_root">Root (iptables)</string>
+    <string name="mode_note_vpn">Tanpa root. Hanya lalu lintas DNS app terpilih yang melalui VPN; app memakai DNS global. Perlu izin VPN sekali saat pertama kali.</string>
+    <string name="mode_note_root">Butuh izin root. Setiap app dapat memakai DNS yang berbeda lewat iptables.</string>
+
+    <string name="server_desc_adguard">AdGuard — memblokir iklan &amp; tracking</string>
+    <string name="server_desc_generic">Resolver DNS publik</string>
+
+    <string name="apps_none">Belum ada aplikasi terpilih.</string>
+    <string name="apps_pick_hint">Pilih aplikasi untuk mengalihkan DNS-nya saja.</string>
+    <string name="manage_apps">Kelola Aplikasi</string>
+    <string name="search_hint">Cari aplikasi…</string>
+
+    <string name="btn_start">MULAI</string>
+    <string name="btn_stop">STOP</string>
+    <string name="not_running">Tidak aktif</string>
+    <string name="running">AKTIF · {mode}</string>
+
+    <string name="rule_global">Mengikuti DNS global</string>
+    <string name="rule_disabled">Nonaktif</string>
+    <string name="rule_custom">Custom DNS</string>
+    <string name="use_perapp">Alihkan</string>
+    <string name="nofiltered">Tidak ada hasil.</string>
+
+    <string name="footer_hint">DoH (HTTPS:443) dipakai otomatis bila UDP:53 diblokir oleh jaringan.</string>
+
+    <string name="toast_stopped">Stop</string>
+    <string name="toast_started_vpn">VPN mode aktif.</string>
+    <string name="toast_started_root">Root mode aktif.</string>
+    <string name="toast_root_fail">Gagal start root mode.</string>
+    <string name="toast_no_su">su (root) tidak ditemukan / izin root ditolak.</string>
+    <string name="toast_need_apps">Pilih dulu app yang DNS-nya mau dialihkan.</string>
+    <string name="toast_custom_empty">Isi IP DNS custom.</string>
+    <string name="toast_vpn_ok">VPN consent OK.</string>
+    <string name="toast_vpn_need">Perlu izin VPN sekali.</string>
+</resources>

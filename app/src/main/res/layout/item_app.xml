@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_card"
+    android:elevation="1dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
+    android:padding="12dp">
+
+    <FrameLayout
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/bg_circle_soft">
+
+        <ImageView
+            android:id="@+id/imgIcon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="8dp">
+
+        <TextView
+            android:id="@+id/txtLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtPkg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/text_muted"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/txtRule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/primary"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="end">
+
+        <Switch
+            android:id="@+id/sw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/use_perapp"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp" />
+
+        <Spinner
+            android:id="@+id/spServer"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:enabled="false" />
+    </LinearLayout>
+</LinearLayout>

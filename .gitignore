@@ -1,0 +1,12 @@
+# Build artifacts
+build/
+*.apk
+*.idsig
+*.aab
+
+# Signing keystore (contains private key + password)
+*.keystore
+
+# Misc
+*.log
+.DS_Store

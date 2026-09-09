@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background">
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:minHeight="?android:attr/actionBarSize"
+        android:paddingTop="24dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:title="@string/manage_apps"
+        android:titleTextColor="@color/text_on_primary"
+        android:subtitleTextColor="#CBE0FC" />
+
+    <EditText
+        android:id="@+id/editSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_edit"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="8dp"
+        android:hint="@string/search_hint"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_muted"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txtCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/listApps"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:listSelector="@android:color/transparent"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp"
+            android:clipToPadding="false" />
+
+        <TextView
+            android:id="@+id/txtEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/nofiltered"
+            android:textColor="@color/text_muted" />
+    </FrameLayout>
+</LinearLayout>
