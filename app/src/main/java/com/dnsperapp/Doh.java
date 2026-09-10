@@ -2,6 +2,7 @@ package com.dnsperapp;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -21,6 +22,50 @@ import javax.net.ssl.SSLSocketFactory;
  * verification. Returns raw DNS response bytes, or null on any failure/timeout.
  */
 public final class Doh {
+
+    public static byte[] queryDot(byte[] dnsQuery, String host, String ip, int timeoutMs) {
+        SSLSocket s = null;
+        try {
+            SSLSocketFactory f = (SSLSocketFactory) SSLSocketFactory.getDefault();
+            s = (SSLSocket) f.createSocket();
+            SSLParameters p = s.getSSLParameters();
+            p.setEndpointIdentificationAlgorithm("HTTPS");
+            p.setServerNames(Collections.singletonList(new SNIHostName(host)));
+            s.setSSLParameters(p);
+            s.connect(new InetSocketAddress(ip, 853), timeoutMs);
+            s.setSoTimeout(timeoutMs);
+
+            OutputStream out = s.getOutputStream();
+            byte[] len = new byte[]{(byte) (dnsQuery.length >> 8), (byte) (dnsQuery.length & 0xFF)};
+            out.write(len);
+            out.write(dnsQuery);
+            out.flush();
+
+            DataInputStream in = new DataInputStream(s.getInputStream());
+            int n;
+            try {
+                n = in.readUnsignedShort();
+            } catch (java.io.EOFException e) {
+                return null;
+            }
+            if (n <= 0 || n > 65535) return null;
+            byte[] resp = new byte[n];
+            in.readFully(resp);
+            if (resp.length < 12) return null;
+            if ((resp[2] & 0x80) == 0) return null;
+            return resp;
+        } catch (IOException e) {
+            android.util.Log.w("DnsPerApp.Doh", "dot fail " + e);
+            return null;
+        } finally {
+            if (s != null) {
+                try {
+                    s.close();
+                } catch (IOException ignored) {
+                }
+            }
+        }
+    }
 
     public static byte[] query(byte[] dnsQuery, String host, String ip, int timeoutMs) {
         SSLSocket s = null;
@@ -130,6 +175,7 @@ public final class Doh {
             if ((resp[2] & 0x80) == 0) return null;
             return resp;
         } catch (IOException e) {
+            android.util.Log.w("DnsPerApp.Doh", "doh fail " + e);
             return null;
         } finally {
             if (s != null) {

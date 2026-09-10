@@ -1,5 +1,7 @@
 package com.dnsperapp;
 
+import java.net.InetAddress;
+
 public final class Tun {
     public static final int VIRTUAL_IP = toInt(10, 1, 10, 2);
 
@@ -76,6 +78,24 @@ public final class Tun {
     static int toInt(byte[] p, int off) {
         return ((p[off] & 0xFF) << 24) | ((p[off + 1] & 0xFF) << 16)
                 | ((p[off + 2] & 0xFF) << 8) | (p[off + 3] & 0xFF);
+    }
+
+    static int intAt(byte[] p, int off) {
+        return toInt(p, off);
+    }
+
+    static String dotted(int ip) {
+        return ((ip >>> 24) & 0xFF) + "." + ((ip >>> 16) & 0xFF) + "."
+                + ((ip >>> 8) & 0xFF) + "." + (ip & 0xFF);
+    }
+
+    static InetAddress addr(int ip) {
+        try {
+            return InetAddress.getByAddress(new byte[]{
+                    (byte) (ip >>> 24), (byte) (ip >>> 16), (byte) (ip >>> 8), (byte) ip});
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     static void writeInt(byte[] o, int off, int v) {

@@ -1,8 +1,12 @@
 package com.dnsperapp;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.VpnService;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +36,13 @@ public class MainActivity extends Activity {
     private Button btnToggle;
 
     private boolean preparingUi = true;
+
+    private final BroadcastReceiver stateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            refreshStatus();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +113,12 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        IntentFilter f = new IntentFilter(VpnDnsService.ACTION_STATE);
+        if (Build.VERSION.SDK_INT >= 33) {
+            registerReceiver(stateReceiver, f, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(stateReceiver, f);
+        }
         preparingUi = true;
         int s = Prefs.serverIndex(this);
         spinnerDns.setSelection(s);
@@ -114,6 +131,14 @@ public class MainActivity extends Activity {
         updateServerDesc(s);
         refreshApps();
         refreshStatus();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try {
+            unregisterReceiver(stateReceiver);
+        } catch (Exception ignored) { }
     }
 
     private void refreshModeNote(int modePos) {

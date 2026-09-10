@@ -13,6 +13,11 @@ public final class Controller {
             VpnDnsService.start(c);
         } else {
             RootDns.start(c);
+            if (android.os.Build.VERSION.SDK_INT >= 26) {
+                c.startForegroundService(new Intent(c, RootKeepAliveService.class));
+            } else {
+                c.startService(new Intent(c, RootKeepAliveService.class));
+            }
         }
     }
 
@@ -23,5 +28,6 @@ public final class Controller {
         if (RootDns.isRunning()) {
             RootDns.stop(c);
         }
+        c.stopService(new Intent(c, RootKeepAliveService.class));
     }
 }
